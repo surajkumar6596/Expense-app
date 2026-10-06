@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #242323;
+    color: white;
+}
+.navbar .user_icon{
+    font-size: 28px;
+    color: white;
+    border: 3px solid green;
+    padding: 5px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

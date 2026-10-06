@@ -1,0 +1,291 @@
+.profile_container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profile_container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.avatar_upload_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.avatar_preview {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid #4f46e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3f4f6;
+}
+
+.profile_img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.default_avatar_icon {
+  font-size: 100px;
+  color: #9ca3af;
+}
+
+.upload_btn_label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #4f46e5;
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.username_display {
+  margin-top: 10px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.input_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form_group label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #4b5563;
+}
+
+.form_group input,
+.form_group select {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.save_btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save_btn:hover {
+  background-color: #4338ca;
+}
+
+.message {
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.message.success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.message.error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+
+
+
+.profile_container {
+  max-width: 550px;
+  margin: 30px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.profile_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.edit_toggle_btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 17px;
+}
+.logout_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: red;
+  border: 1px solid #d1d5db;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  width:100px;
+  font-size: 19px;
+  text-align: center;
+}
+
+/* View Mode Styling */
+.avatar_section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.avatar_section .profile_img,
+.avatar_preview .profile_img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #4f46e5;
+}
+
+.default_avatar_icon {
+  font-size: 90px;
+  color: #9ca3af;
+}
+
+.username_tag {
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.details_grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #f9fafb;
+  padding: 18px;
+  border-radius: 8px;
+}
+
+.detail_item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.detail_item:last-child {
+  border-bottom: none;
+}
+
+.detail_item .label {
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.detail_item .value {
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Edit Mode Form Styling */
+.avatar_preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 20px auto;
+}
+
+.upload_btn_label {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #4f46e5;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.input_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form_group label {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.form_group input,
+.form_group select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.save_btn {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

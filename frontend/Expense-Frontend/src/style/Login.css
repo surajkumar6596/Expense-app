@@ -1,0 +1,44 @@
+.login_page{
+    background: #c0bcbc;
+    padding: 10px;
+    width: 400px;
+    border-radius: 8px;
+    margin: 30px auto;
+    text-align: center;
+}
+.container{
+    width: 100%;
+    margin-top: 20px;
+
+}
+.container input{
+    padding: 10px;
+    font-size: 14px;
+    width: 90%;
+   
+    
+    
+}
+.login_btn{
+    background: green;
+    color: white;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 50%;
+    margin: 10px auto;
+    padding: 10px 12px;
+    border-radius: 8px;
+
+}
+.login_btn:active{
+    transform: scale(0.92);
+}
+.signup_link{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 12px;
+}
+.signup_link strong{
+    cursor: pointer;
+}

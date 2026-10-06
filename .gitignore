@@ -1,0 +1,26 @@
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+**/venv/
+
+# Node
+node_modules/
+**/node_modules/
+
+# Build files
+dist/
+build/
+
+# Local notes
+expense-notes
+
+db.sqlite3
+**/db.sqlite3
+
+**/media/

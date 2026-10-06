@@ -1,0 +1,59 @@
+
+.signup{
+    margin:  50px auto;
+    display: flex;
+    flex-direction: column;
+    background: #bdb9b9;
+    width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.form form{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    border-radius: 5px;
+
+}
+
+input{
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+.gender{
+    display: flex;
+    float: left;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    border: 1px solid gray;
+    margin-bottom: 10px;
+    background: white;
+}
+
+.sign_btn{
+    background: green;
+    font-size: 19px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: white;
+    width: 60%;
+    margin: 0 auto;
+}
+.sign_btn:active{
+    transform: scale(0.92);
+}
+
+.login_link{
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+}
