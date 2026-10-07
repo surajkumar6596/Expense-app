@@ -16,6 +16,7 @@ const Signup = () => {
   });
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,8 +32,11 @@ const Signup = () => {
       .post("http://127.0.0.1:8000/api/register/", formData)
       .then(() => {
         alert("Account created successfully");
+        navigate('/login')
         
         setLoading(false);
+
+
       })
       .catch((err) => {
         setLoading(false);
