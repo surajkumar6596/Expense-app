@@ -13,6 +13,7 @@ const Dashboard = () => {
   const [transactions, setTransactions] = useState([]);
   const [filterCategory, setFilterCategory] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
 
   // Form State
   const [formData, setFormData] = useState({
@@ -30,8 +31,8 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       const [summaryRes, txRes] = await Promise.all([
-        axios.get('http://127.0.0.1:8000/api/transaction/summary/', axiosConfig),
-        axios.get('http://127.0.0.1:8000/api/transaction/', axiosConfig)
+        axios.get(`${BASE_URL}/api/transaction/summary/`, axiosConfig),
+        axios.get(`${BASE_URL}/api/transaction/`, axiosConfig)
       ]);
       setSummary(summaryRes.data);
       setTransactions(txRes.data);
@@ -53,7 +54,7 @@ const Dashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/api/transaction/', formData, axiosConfig);
+      await axios.post(`${BASE_URL}/api/transaction/`, formData, axiosConfig);
       // Form Reset & Reload Data
       setFormData({
         title: '',
@@ -71,7 +72,7 @@ const Dashboard = () => {
   // Delete Transaction
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/transaction/${id}/`, axiosConfig);
+      await axios.delete(`${BASE_URL}/api/transaction/${id}/`, axiosConfig);
       fetchData();
     } catch (error) {
       console.error("Error deleting transaction:", error);

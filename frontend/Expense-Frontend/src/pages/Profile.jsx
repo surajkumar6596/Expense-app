@@ -13,7 +13,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState({type:"", text:""})
-  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
 
   const navigate = useNavigate()
 

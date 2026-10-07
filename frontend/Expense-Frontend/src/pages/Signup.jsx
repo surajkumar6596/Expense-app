@@ -18,7 +18,7 @@ const Signup = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
-  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
 
   const handleChange = (e) => {
     const { name, value } = e.target;
