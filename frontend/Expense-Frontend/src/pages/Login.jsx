@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -12,6 +13,7 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +30,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login/",
+        `${BASE_URL}/api/login/`,
         formData,
       );
       localStorage.setItem("access_token", response.data.access);

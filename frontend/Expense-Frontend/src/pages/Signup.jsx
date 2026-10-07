@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
+
 const Signup = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -17,6 +18,7 @@ const Signup = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,7 +31,7 @@ const Signup = () => {
     setErr("");
 
     axios
-      .post("http://127.0.0.1:8000/api/register/", formData)
+      .post(`${BASE_URL}/api/register/`, formData)
       .then(() => {
         alert("Account created successfully");
         navigate('/login')

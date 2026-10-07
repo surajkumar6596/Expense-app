@@ -13,6 +13,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState({type:"", text:""})
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
 
   const navigate = useNavigate()
 
@@ -25,7 +26,7 @@ const Profile = () => {
     const token = localStorage.getItem('access_token')
 
     try{
-      const res = await axios.get('http://127.0.0.1:8000/api/profile/',
+      const res = await axios.get(`${BASE_URL}/api/profile/`,
         {headers: {Authorization: `Bearer ${token}`}}
       );
       setUser(res.data)
@@ -79,7 +80,7 @@ const Profile = () => {
     }
 
     try{
-      const res  = await axios.put('http://127.0.0.1:8000/api/profile/', updateData,
+      const res  = await axios.put(`${BASE_URL}/api/profile/`, updateData,
         {headers:{Authorization:`Bearer ${token}`}},
       );
 
@@ -108,7 +109,7 @@ const Profile = () => {
     if(user?.profile_image){
       return user.profile_image.startsWith('http')
       ? user.profile_image
-      : `http://127.0.0.1:8000${user.profile_image}`;
+      : `${BASE_URL}${user.profile_image}`;
     }
     return null
   }
