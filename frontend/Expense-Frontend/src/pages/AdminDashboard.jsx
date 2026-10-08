@@ -20,7 +20,7 @@ const AdminDashboard = () => {
       setError(null);
       const token = localStorage.getItem('access_token');
       
-      const response = await axios.get(`${BASE_URL}//api/admin-dashboard/system_summary/`, {
+      const response = await axios.get(`${BASE_URL}/api/admin-dashboard/system_summary/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
