@@ -8,7 +8,7 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL;
+  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
 
   useEffect(() => {
     loadAdminData();
@@ -20,7 +20,7 @@ const AdminDashboard = () => {
       setError(null);
       const token = localStorage.getItem('access_token');
       
-      const response = await axios.get(`${BASE_URL}/api/admin-dashboard/system_summary/`, {
+      const response = await axios.get(`${BASE_URL}//api/admin-dashboard/system_summary/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
