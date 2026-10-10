@@ -5,7 +5,7 @@ from rest_framework import status,generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django.contrib.auth import get_user_model
-from .serializers import RegisterSeializer,UserProfileSeralizer
+from .serializers import RegisterSerializer,UserProfileSerializer
 from rest_framework.views import APIView
 
 
@@ -15,7 +15,7 @@ User = get_user_model()
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
-    serializer_class = RegisterSeializer
+    serializer_class = RegisterSerializer
 
     def create(self, request,*args,**kwargs):
         serializer = self.get_serializer(data = request.data)
@@ -25,7 +25,7 @@ class RegisterView(generics.CreateAPIView):
         return Response(
             {
                 'message':'Registet successfully',
-                'user': UserProfileSeralizer(user).data
+                'user': UserProfileSerializer(user).data
             },
             status=status.HTTP_201_CREATED
 
@@ -37,12 +37,12 @@ class ProfileView(APIView):
 
     def get(self, request):
         user = request.user
-        serializer = UserProfileSeralizer(user)
+        serializer = UserProfileSerializer(user)
         return Response(serializer.data, status = status.HTTP_200_OK)
 
     def put(self, request):
         user = request.user
-        serializer = UserProfileSeralizer(user, data = request.data, partial = True)
+        serializer = UserProfileSerializer(user, data = request.data, partial = True)
 
         if serializer.is_valid():
             serializer.save()

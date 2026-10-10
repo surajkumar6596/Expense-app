@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import '../style/Dashboard.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "../style/Dashboard.css";
+import { useSearchParams } from "react-router-dom";
 
 const Dashboard = () => {
   // State variables
@@ -8,32 +9,53 @@ const Dashboard = () => {
     total_income: 0,
     total_expense: 0,
     remaining_balance: 0,
-    category_breakdown: []
+    category_breakdown: [],
   });
   const [transactions, setTransactions] = useState([]);
-  const [filterCategory, setFilterCategory] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
+  const [filterCategory, setFilterCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const BASE_URL =
+    import.meta.env.VITE_EXPENSE_BACKEND_API_URL ||
+    "https://expense-backend-5ewg.onrender.com";
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentMonth =
+    searchParams.get("month") || new Date().toISOString().slice(0, 7);
 
   // Form State
   const [formData, setFormData] = useState({
-    title: '',
-    amount: '',
-    type: 'Expense',
-    category: 'Food & Dining',
-    date: '2026-09-16'
+    title: "",
+    amount: "",
+    type: "Expense",
+    category: "Food & Dining",
+    date: "2026-09-16",
   });
 
-  const token = localStorage.getItem('access_token');
+  const token = localStorage.getItem("access_token");
   const axiosConfig = { headers: { Authorization: `Bearer ${token}` } };
 
   // Fetch Summary & Transactions from Django Backend
+
   const fetchData = async () => {
+    console.log("Current Month:", currentMonth);
+    console.log("Token:", token);
+    console.log(`${BASE_URL}/api/transaction/?month=${currentMonth}`);
     try {
       const [summaryRes, txRes] = await Promise.all([
-        axios.get(`${BASE_URL}/api/transaction/summary/`, axiosConfig),
-        axios.get(`${BASE_URL}/api/transaction/`, axiosConfig)
+        axios.get(
+          `${BASE_URL}/api/transaction/summary/?month=${currentMonth}`,
+          axiosConfig,
+        ),
+
+        axios.get(
+          `${BASE_URL}/api/transaction/?month=${currentMonth}`,
+          axiosConfig,
+        ),
       ]);
+
+      console.log("Summary:", summaryRes.data);
+      console.log("Transactions:", txRes.data);
       setSummary(summaryRes.data);
       setTransactions(txRes.data);
     } catch (error) {
@@ -41,9 +63,12 @@ const Dashboard = () => {
     }
   };
 
+  console.log(import.meta.env.VITE_EXPENSE_BACKEND_API_URL);
+  console.log(window.location.search);
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentMonth]);
 
   // Handle Input Changes
   const handleInputChange = (e) => {
@@ -57,11 +82,11 @@ const Dashboard = () => {
       await axios.post(`${BASE_URL}/api/transaction/`, formData, axiosConfig);
       // Form Reset & Reload Data
       setFormData({
-        title: '',
-        amount: '',
-        type: 'Expense',
-        category: 'Food & Dining',
-        date: new Date().toISOString().split('T')[0]
+        title: "",
+        amount: "",
+        type: "Expense",
+        category: "Food & Dining",
+        date: new Date().toISOString().split("T")[0],
       });
       fetchData();
     } catch (error) {
@@ -81,15 +106,16 @@ const Dashboard = () => {
 
   // Filter & Search Logic
   const filteredTransactions = transactions.filter((item) => {
-    const matchesCategory = filterCategory === 'All' || item.category === filterCategory;
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory =
+      filterCategory === "All" || item.category === filterCategory;
+    const matchesSearch = item.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   return (
     <div className="app-container">
-      
-
       {/* 2. TOP SUMMARY CARDS */}
       <div className="summary-grid">
         <div className="summary-card">
@@ -146,7 +172,7 @@ const Dashboard = () => {
                     type="radio"
                     name="type"
                     value="Expense"
-                    checked={formData.type === 'Expense'}
+                    checked={formData.type === "Expense"}
                     onChange={handleInputChange}
                   />
                   Expense
@@ -156,7 +182,7 @@ const Dashboard = () => {
                     type="radio"
                     name="type"
                     value="Income"
-                    checked={formData.type === 'Income'}
+                    checked={formData.type === "Income"}
                     onChange={handleInputChange}
                   />
                   Income
@@ -192,7 +218,9 @@ const Dashboard = () => {
               />
             </div>
 
-            <button type="submit" className="btn-submit">Add Transaction</button>
+            <button type="submit" className="btn-submit">
+              Add Transaction
+            </button>
           </form>
         </div>
 
@@ -207,7 +235,9 @@ const Dashboard = () => {
                 <div key={index} className="category-item">
                   <div className="category-row-header">
                     <span>{item.category}</span>
-                    <span>₹{item.total} ({item.percentage}%)</span>
+                    <span>
+                      ₹{item.total} ({item.percentage}%)
+                    </span>
                   </div>
                   <div className="progress-bg">
                     <div
@@ -225,7 +255,9 @@ const Dashboard = () => {
       {/* 4. BOTTOM SECTION: RECENT TRANSACTIONS TABLE */}
       <div className="panel-box">
         <div className="table-header-bar">
-          <h2 className="panel-title" style={{ margin: 0 }}>📜 Recent Transactions</h2>
+          <h2 className="panel-title" style={{ margin: 0 }}>
+            📜 Recent Transactions
+          </h2>
           <div className="table-filters">
             <select
               className="dropdown-select"
@@ -251,28 +283,46 @@ const Dashboard = () => {
         <table className="transactions-table">
           <thead>
             <tr>
-              <th>Category</th>
+              <th>Action</th>
               <th>Title</th>
+              <th>Category</th>
               <th>Date</th>
               <th>Amount</th>
-              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            {filteredTransactions.map((tx) => (
-              <tr key={tx.id}>
-                <td>{tx.category}</td>
-                <td>{tx.title}</td>
-                <td>{tx.date}</td>
-                <td className={tx.type === 'Income' ? 'amount-income' : 'amount-expense'}>
-                  {tx.type === 'Income' ? '+' : '-'}₹{tx.amount}
-                </td>
-                <td>
-                  <button className="action-btn" title="Edit">✏️</button>
-                  <button className="action-btn" title="Delete" onClick={() => handleDelete(tx.id)}>🗑️</button>
+            {filteredTransactions.length > 0 ? (
+              filteredTransactions.map((tx) => (
+                <tr key={tx.id}>
+                  <td>{tx.title}</td>
+                  {/* <td>₹{tx.amount}</td> */}
+                  <td>{tx.type}</td>
+                  <td>{tx.category}</td>
+                  <td>{tx.date}</td>
+                  <td
+                    className={
+                      tx.type === "Income" ? "amount-income" : "amount-expense"
+                    }
+                  >
+                    {tx.type === "Income" ? "+" : "-"}₹{tx.amount}
+                  </td>
+                  <td>
+                    <button
+                      className="action-btn"
+                      onClick={() => handleDelete(tx.id)}
+                    >
+                      Delete{" "}
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="no-data">
+                  No Data Found
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

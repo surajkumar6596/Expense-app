@@ -23,7 +23,12 @@ const Profile = () => {
 
 
   const fetchProfile = async()=>{
-    const token = localStorage.getItem('access_token')
+    const token = localStorage.getItem('access_token');
+  
+    if (!token) {
+      navigate('/login');
+      return;
+    }
 
     try{
       const res = await axios.get(`${BASE_URL}/api/profile/`,
@@ -31,9 +36,17 @@ const Profile = () => {
       );
       setUser(res.data)
       setFormData(res.data)
+
+      
       
     } catch(err){
       console.error('Error fetching profile', err)
+      if (err.response?.status === 401) {
+        localStorage.clear();
+        navigate('/login');
+      } else {
+        setMessage({ type: 'error', text: 'User data not found' });
+      }
       setMessage({type:'error', text:'User data not found'})
 
     }finally{
@@ -57,8 +70,8 @@ const Profile = () => {
 
 
   const handleLogout = ()=>{
-    localStorage.removeItem('access_token')
-    localStorage.removeItem('refresh_token')
+    localStorage.clear();
+    window.dispatchEvent(new Event("authChange"));
     navigate('/login')
   }
 
@@ -93,7 +106,7 @@ const Profile = () => {
       console.error('Updated Error', err.response?.data)
       if(err.response?.data){
         const errDetail = JSON.stringify(err.response.data)
-        setMessage({teyp:'error', text:`Failed: ${errDetail}`})
+        setMessage({type:'error', text:`Failed: ${errDetail}`})
       }else{
         setMessage({type:'error', text:'Profile updated failed'})
       }

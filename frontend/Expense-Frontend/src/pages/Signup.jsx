@@ -81,7 +81,7 @@ const Signup = () => {
             placeholder="Email"
           />
           <input
-            type="text"
+            type="password"
             name="password"
             onChange={handleChange}
             value={formData.password}

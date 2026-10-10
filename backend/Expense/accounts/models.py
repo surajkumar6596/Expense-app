@@ -11,6 +11,7 @@ class User(AbstractUser):
         OTHER = 'other', 'Other'
 
     phone = models.CharField(max_length=10, unique=True)
+    
     gender = models.CharField(null=True,blank=True, choices=GENDER, max_length=10)
     profile_image = models.ImageField(upload_to='profiles/', null=True, blank=True)
 

@@ -3,28 +3,28 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-class RegisterSeializer(serializers.ModelSerializer):
+class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=6)
 
     class Meta:
         model = User
         fields = ('id','first_name','last_name','username','email','password','phone','gender',)
 
-    def create(self, validate_data):
+    def create(self, validated_data):
         user = User.objects.create_user(
-            username = validate_data['username'],
-            first_name = validate_data['first_name'],
-            last_name = validate_data['last_name'],
-            email  = validate_data['email'],
-            password = validate_data['password'],
-            phone = validate_data['phone'],
-            gender=validate_data['gender'],
+            username = validated_data['username'],
+            first_name = validated_data['first_name'],
+            last_name = validated_data['last_name'],
+            email  = validated_data['email'],
+            password = validated_data['password'],
+            phone = validated_data['phone'],
+            gender=validated_data['gender'],
 
         )
         return user
 
 
-class UserProfileSeralizer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     profile_image = serializers.ImageField(required=False, allow_null=True)
     class Meta:
         model = User

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-
 const Login = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,7 +12,9 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const BASE_URL = import.meta.env.VITE_EXPENSE_BACKEND_API_URL || 'https://expense-backend-5ewg.onrender.com';
+  const BASE_URL =
+    import.meta.env.VITE_EXPENSE_BACKEND_API_URL ||
+    "https://expense-backend-5ewg.onrender.com";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,21 +30,25 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/login/`,
-        formData,
-      );
+      const response = await axios.post(`${BASE_URL}/api/login/`, formData);
       localStorage.setItem("access_token", response.data.access);
       localStorage.setItem("refresh_token", response.data.refresh);
-      localStorage.setItem('username', formData.username);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${response.data.access}`;
-      
-      // window.dispatchEvent(new Event("authChange"));
+      localStorage.setItem("username", formData.username);
+      axios.defaults.headers.common["Authorization"] =
+        `Bearer ${response.data.access}`;
+
+      window.dispatchEvent(new Event("authChange"));
       alert("Login Successful !");
       navigate("/");
     } catch (err) {
-      if (err.response && err.response.data) {
-        setError("Invalid username or password");
+     
+      console.error("Login Error:", err.response?.data);
+      if (err.response?.data?.detail) {
+        setError(err.response.data.detail); // Django SimpleJWT ka standard detail message (jaise "No active account found with the given credentials")
+      } else if (err.response?.data) {
+        // Agar koi aur validation error hai
+        const firstKey = Object.keys(err.response.data)[0];
+        setError(`${firstKey}: ${err.response.data[firstKey]}`);
       } else {
         setError("Server error. Please try again later");
       }
@@ -65,13 +70,15 @@ const Login = () => {
           placeholder="Username"
         />
         <input
-          type="text"
+          type="password"
           name="password"
           onChange={handleChange}
           value={formData.password}
           placeholder="Password"
         />
-        <div className="login_btn" onClick={handleSubmit}>Login</div>
+        <div className="login_btn" onClick={handleSubmit}>
+          Login
+        </div>
 
         <div className="signup_link">
           <span>Don't have accounts ?</span>
